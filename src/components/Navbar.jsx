@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ShoppingBag, ShoppingCart } from "lucide-react";
 import image from "/public/bag.webp";
@@ -7,6 +7,21 @@ import { useCartContext } from "../context/CartContext";
 const Navbar = () => {
   const { cart } = useCartContext();
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const [animate, setAnimate] = useState(false);
+
+  useEffect(() => {
+    if (cart.length > 0) {
+      setAnimate(true);
+      setTimeout(() => {
+        setAnimate(false);
+      }, 500);
+    }
+
+    return () => {
+      clearTimeout();
+    };
+  }, [totalItems]);
+
   return (
     <nav className="flex justify-between p-4 fixed top-0 left-0 w-full bg-gray-900/90 backdrop-blur shadow-md text-white z-100">
       <Link to="/">
@@ -27,7 +42,9 @@ const Navbar = () => {
         </Link>
 
         {totalItems > 0 && (
-          <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs font-bold px-1.5 py-0 mt-1 mr-1 rounded-full">
+          <span
+            className={`absolute -top-2 -right-3 bg-red-500 text-white text-xs font-semibold px-1.5 mt-1 mr-0.5 rounded-full ${animate ? "scale-110" : ""} transition`}
+          >
             {totalItems}
           </span>
         )}
