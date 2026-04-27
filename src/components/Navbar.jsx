@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ShoppingBag, ShoppingCart } from "lucide-react";
-import image from "/public/bag.webp";
+import image from "/bag.webp";
 import { useCartContext } from "../context/CartContext";
 
 const Navbar = () => {
