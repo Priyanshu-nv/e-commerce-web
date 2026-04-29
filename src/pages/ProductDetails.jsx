@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useCartContext } from "../context/CartContext";
+import Toast from "../components/Toast";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const { addToCart } = useCartContext();
-  const navigate = useNavigate();
+  const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
     fetch(`https://fakestoreapi.com/products/${id}`)
@@ -21,6 +22,15 @@ const ProductDetails = () => {
       behavior: "instant",
     });
   }, []);
+
+  const handleAddToCart = () => {
+    addToCart(product);
+    setShowToast(true);
+
+    setTimeout(() => {
+      setShowToast(false);
+    }, 2000);
+  };
 
   if (!product) {
     return (
@@ -52,16 +62,14 @@ const ProductDetails = () => {
             ₹{Math.round(product.price)}
           </p>
           <button
-            onClick={() => {
-              addToCart(product);
-              navigate("/cart");
-            }}
+            onClick={handleAddToCart}
             className="bg-sky-500 hover:bg-sky-600 rounded-3xl text-black max-w-48 px-7 py-2 mt-4"
           >
             Add to Cart
           </button>
         </div>
       </div>
+      <Toast message="Added to cart 🛒" show={showToast} />
     </div>
   );
 };

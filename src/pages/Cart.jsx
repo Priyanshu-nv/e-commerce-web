@@ -14,7 +14,7 @@ function Cart() {
     <div className="lg:max-w-7xl mx-auto p-1 flex flex-col md:flex-row items-center md:items-start gap-6">
       <div className="p-4 min-h-screen w-full">
         <span className="flex items-center mb-4">
-          <h1 className="text-xl font-bold mr-1">Cart</h1>
+          <h1 className="text-xl font-bold mr-1">Your Cart</h1>
           <ShoppingBag />
         </span>
 
