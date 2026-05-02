@@ -1,14 +1,22 @@
 import React from "react";
 import { useCartContext } from "../context/CartContext";
 import { ShoppingBag } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
+import { Navigate, useLocation } from "react-router-dom";
 
 function Cart() {
   const { cart, removeFromCart, increaseQty, decreaseQty } = useCartContext();
+  const location = useLocation();
+  const { user } = useAuth();
 
   const total = cart.reduce(
     (sum, item) => sum + Math.round(item.price) * item.quantity,
     0,
   );
+
+  if (!user) {
+    return <Navigate to="/login" state={{ from: location }} />;
+  }
 
   return (
     <div className="lg:max-w-7xl mx-auto p-1 flex flex-col md:flex-row items-center md:items-start gap-6">

@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import { ShoppingBag, ShoppingCart } from "lucide-react";
 import image from "/bag.webp";
 import { useCartContext } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
   const { cart } = useCartContext();
+  const { user, logout } = useAuth();
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   const [animate, setAnimate] = useState(false);
 
@@ -35,20 +37,35 @@ const Navbar = () => {
         </div>
       </Link>
 
-      <span className="relative flex items-center font-bold text-xl mr-5">
-        <Link to="/cart" className="flex items-center">
-          Cart
-          <ShoppingCart className="size-6 ml-1" />
-        </Link>
+      <div className="flex">
+        <span className="relative flex items-center font-bold text-xl mr-5">
+          <Link to="/cart" className="flex items-center">
+            Cart
+            <ShoppingCart className="size-6 ml-1" />
+          </Link>
 
-        {totalItems > 0 && (
-          <span
-            className={`absolute -top-2 -right-3 bg-red-500 text-white text-xs font-semibold px-1.5 mt-1 mr-0.5 rounded-full ${animate ? "scale-110" : ""} transition`}
+          {totalItems > 0 && (
+            <span
+              className={`absolute -top-2 -right-3 bg-red-500 text-white text-xs font-semibold px-1.5 mt-1 mr-0.5 rounded-full ${animate ? "scale-110" : ""} transition`}
+            >
+              {totalItems}
+            </span>
+          )}
+        </span>
+
+        {user ? (
+          <button
+            onClick={logout}
+            className="ml-2 bg-red-500 px-3 py-1 rounded"
           >
-            {totalItems}
-          </span>
+            Logout
+          </button>
+        ) : (
+          <Link to="/login" className="ml-2 bg-sky-600 px-3 py-1 rounded">
+            Login
+          </Link>
         )}
-      </span>
+      </div>
     </nav>
   );
 };
