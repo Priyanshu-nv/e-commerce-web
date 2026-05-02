@@ -54,7 +54,12 @@ function Cart() {
                   </span>
 
                   <button
-                    className="w-5 h-5 sm:w-7 sm:h-7 flex items-center justify-center bg-gray-50 hover:bg-gray-100 font-semibold rounded-full"
+                    disabled={item.quantity >= 20}
+                    className={`w-5 h-5 sm:w-7 sm:h-7 flex items-center justify-center ${
+                      item.quantity >= 10
+                        ? "bg-gray-300 cursor-not-allowed"
+                        : "bg-gray-50 hover:bg-gray-100"
+                    } font-semibold rounded-full`}
                     onClick={() => increaseQty(item.id)}
                   >
                     +

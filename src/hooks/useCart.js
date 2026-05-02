@@ -13,7 +13,11 @@ const useCart = () => {
   const addToCart = (product) => {
     setCart((prev) => {
       const existing = prev.find((item) => item.id === product.id);
+
       if (existing) {
+        if (existing.quantity >= 10) {
+          return prev;
+        }
         return prev.map((item) =>
           item.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
@@ -30,9 +34,16 @@ const useCart = () => {
 
   const increaseQty = (id) => {
     setCart((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item,
-      ),
+      prev.map((item) => {
+        if (item.id === id) {
+          if (item.quantity >= 10) {
+            alert("Maximum limit reached (10 items)");
+            return item;
+          }
+          return { ...item, quantity: item.quantity + 1 };
+        }
+        return item;
+      }),
     );
   };
 
