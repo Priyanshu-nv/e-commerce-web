@@ -11,15 +11,17 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 
 function App() {
+  const [search, setSearch] = useState("");
+
   return (
     <HashRouter>
       <ScrollToTop />
-      <Navbar />
-      <main className="pt-20 px-3 bg-gray-100 min-h-screen">
+      <Navbar search={search} setSearch={setSearch} />
+      <main className="md:pt-20 pt-30 px-3 bg-gray-100 min-h-screen">
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home search={search} />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
         </Routes>

@@ -30,7 +30,7 @@ function Cart() {
           <p>Your cart is empty</p>
         ) : (
           cart.map((item) => (
-            <div className="flex flex-col md:flex-row md:items-center justify-between border border-gray-300 rounded p-2 mb-3 shadow-sm gap-3 bg-gray-300">
+            <div className="flex flex-col md:flex-row md:items-center justify-between border border-gray-300 rounded-md p-2 mb-3 shadow-sm gap-3 bg-gray-300 hover:bg-gray-400">
               {/* Title */}
               <div className="flex-1">
                 <h2 className="font-semibold text-sm md:text-base">
@@ -54,7 +54,7 @@ function Cart() {
                   </span>
 
                   <button
-                    disabled={item.quantity >= 20}
+                    disabled={item.quantity > 10}
                     className={`w-5 h-5 sm:w-7 sm:h-7 flex items-center justify-center ${
                       item.quantity >= 10
                         ? "bg-gray-300 cursor-not-allowed"

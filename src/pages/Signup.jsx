@@ -6,7 +6,7 @@ function Signup() {
   const { signup } = useAuth();
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,6 +17,17 @@ function Signup() {
   return (
     <>
       <form onSubmit={handleSubmit} className="p-4 max-w-md mx-auto">
+        <input
+          type="text"
+          placeholder="Full Name"
+          className="w-full p-2 border mb-3"
+          onChange={(e) =>
+            setForm({
+              ...form,
+              name: e.target.value,
+            })
+          }
+        />
         <input
           type="email"
           placeholder="Email"
